@@ -1,19 +1,21 @@
 import React from 'react'
-import $ from 'jquery';
+import axios from 'axios'
 import {Login} from '../../actions/Login'
 import {loginUrl} from '../../api'
+
 
 
 // /* eslint-disable */
 class LoginPage extends React.Component{
     submit = (data) => {
-        $.ajax({
-            type: "POST",
-            url : loginUrl,
-            data: {u: data.username, p: data.password},
-            success (response) {
-                console.log({response});
-            }
+        axios.post(loginUrl, {
+            u: data.username, p: data.password
+        })
+        .then((response) => {
+            
+        })
+        .catch((error) => {
+           
         });
     }
 
