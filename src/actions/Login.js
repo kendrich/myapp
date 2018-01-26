@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cookies from 'react-cookies';
 import { Button,Form,Grid,Header,Segment,Input} from 'semantic-ui-react';
+import {Home} from '../components/pages/Home'
 
 const InlineError = ({text}) => <span style={{color: "#912d2b"}}>{text}</span>
 InlineError.propTypes ={
@@ -17,6 +19,11 @@ export class Login extends React.Component {
         loading: false,
         errors:{},
     };
+
+    componentWillMount() {
+        this.state.token= cookies.load('token')
+    }
+
     onChange = e => this.setState({
         data: {...this.state.data, [e.target.name]: e.target.value}
     });
@@ -38,8 +45,12 @@ export class Login extends React.Component {
     
 
     render() {
-        const { data, errors } = this.state;
-
+        const { data, errors, token } = this.state;
+        if (token) {
+            return (
+                <Home/>
+            )
+        }
         return (
             <div className='login-form'>
                 <Grid
